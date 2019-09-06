@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flask Bokeh Sample</title>
+    <link rel="stylesheet" href="https://cdn.pydata.org/bokeh/release/bokeh-1.3.4.min.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.pydata.org/bokeh/release/bokeh-widgets-1.3.4.min.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.pydata.org/bokeh/release/bokeh-tables-1.3.4.min.css" type="text/css">
+
+    <script type="text/javascript" src="https://cdn.pydata.org/bokeh/release/bokeh-1.3.4.min.js"></script>
+    <script type="text/javascript" src="https://cdn.pydata.org/bokeh/release/bokeh-api-1.3.4.min.js"></script>
+    <script type="text/javascript" src="https://cdn.pydata.org/bokeh/release/bokeh-widgets-1.3.4.min.js"></script>
+    <script type="text/javascript" src="https://cdn.pydata.org/bokeh/release/bokeh-tables-1.3.4.min.js"></script>
+</head>
+
+<body>
+    Raspberry Pi 温湿度監視・通知システム<br>
+    <table border="1">
+        <tr>
+        <th>現在の温度</th>
+        <th>現在の湿度</th>
+        <th>１時間前との温度差</th>
+        <th>１時間前との湿度差</th>
+        </tr>
+        <tr align="right">
+        <td>{{ tmp|safe }} ℃</td>
+        <td>{{ hum|safe }} %</td>
+        <td>{{ subtmp|safe }}　℃</td>
+        <td>{{ subhum|safe }}　%</td>
+        </tr>
+    </table>
+        <br>不快指数　　{{ thi|safe }}　　{{ mes|safe }}<br>
+    <dialog>
+    <table border="1" align="center">
+        <tr>
+        <th>値</th>
+        <th>評価</th>
+        </tr>
+        <tr>
+        <td>～55</td>
+        <td>寒い</td>
+        </tr>
+　　　　<tr>
+        <td>55～60</td>
+        <td>肌寒い</td>
+        </tr>
+　　　　<tr>
+        <td>60～65</td>
+        <td>何も感じない</td>
+        </tr>
+　　　　<tr>
+        <td>65～70</td>
+        <td>快い</td>
+        </tr>
+　　　　<tr>
+        <td>70～75</td>
+        <td>暑くない</td>
+        </tr>
+　　　　<tr>
+        <td>75～80</td>
+        <td>やや暑い</td>
+        </tr>
+　　　　<tr>
+        <td>80～85</td>
+        <td>暑くて汗が出る</td>
+        </tr>
+　　　　<tr>
+        <td>85～</td>
+        <td>暑くてたまらない</td>
+        </tr>
+    </table>
+    <button id = 'close'>閉じる</button>
+    </dialog>
+    <button id = 'show'>不快指数について</button><br>
+
+    {{ script|safe }}
+    {{ div|safe }}
+
+    <script>
+      var dialog = document.querySelector('dialog');
+      var btn_show = document.getElementById('show');
+      var btn_close = document.getElementById('close');
+      btn_show.addEventListener('click', function() {
+        dialog.showModal();
+      }, false);
+      btn_close.addEventListener('click', function() {
+        dialog.close();
+      }, false);
+    </script>    
+</body>
+</html>
